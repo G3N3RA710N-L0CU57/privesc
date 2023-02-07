@@ -1,5 +1,10 @@
 # Windows Privilege Escalation Notes  
 
+Find user privileges.  
+
+`whoami /priv`
+
+
 ## Integrity levels  
 
 Find group information and integrity level.  
