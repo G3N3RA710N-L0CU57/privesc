@@ -10,8 +10,6 @@ To find other users.
 
 `net user`  
 
-
-
 Check who is in local administrators group.  
 
 `net localgroup Administrators`  
@@ -22,18 +20,29 @@ Find the version and arch of the os.
 
 `systeminfo | findstr /B /C:"OS Name" /C:"OS Version" /C:"System Type"`  
 
+Gather information from the hostname, including naming conventions e.g. client001, client002 ...  
+
+`hostname`
 
 Find user privileges.  
 
 `whoami /priv`
 
-Find running processes.  
+Find running processes mapped to specific services, only for un privileged users.  
 
-`tasklist`  
+`tasklist /SVC`  
 
 Find running processes with powershell.  
 
 `Get-WmiObject win32_service | Select-Object Name, State, PathName | Where-Object {$_.State -like 'Running'}`  
+
+## Network  
+
+Enumerate the network.  
+
+`ipconfig /all`
+
+
 
 ## Services  
 
