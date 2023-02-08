@@ -10,7 +10,18 @@ Find user context.
 
 Find information from the hostname.  
 
-`hostname`
+`hostname`  
+
+os version information.  
+
+```
+cat /etc/*-release
+uname -a
+```  
+
+List processes, a and x with/without TTY and u for readable output.  
+
+`ps aux`
 
 ## cron  
 
