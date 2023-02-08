@@ -4,6 +4,13 @@ Find out what user is currently logged in.
 
 `whoami`  
 
+Find user context.  
+
+`id`  
+
+Find information from the hostname.  
+
+`hostname`
 
 ## cron  
 
