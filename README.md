@@ -1,2 +1,5 @@
-# windows-privesc
-Windows privilege escalation
+# privesc
+
+Windows privilege escalation  
+
+Linux privilege escalation
