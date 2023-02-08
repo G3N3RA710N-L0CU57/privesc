@@ -6,6 +6,10 @@ Check who is in local administrators group.
 
 `net localgroup Administrators`  
 
+Find the version and arch of the os.  
+
+`systeminfo | findstr /B /C:"OS Name" /C:"OS Version" /C:"System Type"`  
+
 
 Find user privileges.  
 
@@ -154,4 +158,17 @@ Could be placed in.
 `C:\Program Files\My Program`  
 
 If write permissions are misconfigured.  
+
+## Third-party driver attacks  
+
+Enum drivers.  
+
+`driverquery /v`  
+
+Running gcc on windows, run the bat file first to set up PATH env variable.  
+
+```
+mingw-w64.bat
+gcc --help
+```  
 
