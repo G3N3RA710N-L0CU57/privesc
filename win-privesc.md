@@ -2,9 +2,21 @@
 
 ## net commands  
 
+Pass a username and gather more info.  
+
+`net user someUsername`  
+
+To find other users.  
+
+`net user`  
+
+
+
 Check who is in local administrators group.  
 
 `net localgroup Administrators`  
+
+## os
 
 Find the version and arch of the os.  
 
