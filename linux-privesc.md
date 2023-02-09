@@ -25,6 +25,15 @@ List processes, a and x with/without TTY and u for readable output.
 
 ## cron  
 
+List cron.  
+
+`ls -lah /etc/cron*`  
+
+System cron jobs usually running as root.  
+
+`cat /etc/crontab`  
+
+
 To view running jobs in the cron log.  
 
 `grep "CRON" /var/log/cron.log`  
@@ -71,5 +80,53 @@ Architecture.
 
 `arch`  
 
+## Network  
 
+Display all network information.  
+
+`ip a`  
+
+`ifconfig a`  
+
+Display route tables, depending on linux flavour/version.  
+
+`/sbin/route`  
+
+`/sbin/routel`  
+
+List all connections, 'a' = all, 'n' = no dns, 'p' = print owning process.  
+
+`ss -anp`  
+
+Firewall rules as root user.  
+
+`iptables`  
+
+Some firewall rules can be found as a standard user.  
+
+`/etc/iptables`  
+
+## Applications  
+
+View installed applications.  
+
+`dpkg -l`  
+
+## File permissions  
+
+Using the find command.  
+
+`find / -writable -type d 2>/dev/null`  
+
+## Drives  
+
+View mounted drives.  
+
+`mount`  
+
+`cat /etc/fstab`  
+
+View all available disks.  
+
+`/bin/lsblk`  
 
