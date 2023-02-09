@@ -174,6 +174,14 @@ To add a value to a registry key, d is the value and f to add silently.
 
 `REG ADD HKCU\Software\Classes\ms-settings\Shell\Open\command /d "cmd.exe" /f`  
 
+If AlwaysInstalledElevated is set to true, in either HKEY_CURRENT_USER or HKEY_LOCAL_MACHINE, any user can run Windows Installer packages with elevated privileges.  
+
+`reg query HKEY_CURRENT_USER\Software\Policies\Microsoft\Windows\Installer`  
+
+`reg query HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows\Installer`  
+
+If this setting is enabled, a MSI file can be created to elevate privileges.
+
 ## Unquoted service paths  
 
 This attack is possible when a service directory and sub-directory has write access but the files within cannot be replaced.  
@@ -248,4 +256,8 @@ Query device drivers.
 powershell
 driverquery.exe /v /fo csv | ConvertFrom-CSV | Select-Object ‘Display Name’, ‘Start Mode’, Path
 ```  
+
+Find version of each device driver.  
+
+`Get-WmiObject Win32_PnPSignedDriver | Select-Object DeviceName, DriverVersion, Manufacturer | Where-Object {$_.DeviceName -like "*VMware*"}`  
 
