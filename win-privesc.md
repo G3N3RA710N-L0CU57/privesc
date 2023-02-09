@@ -42,6 +42,27 @@ Enumerate the network.
 
 `ipconfig /all`
 
+Display routing tables.  
+
+`route print`  
+
+Display active tcp, 'a' = active, 'n' = address/port in numerical form, 'o' owning process PID.  
+
+`netstat -ano`  
+
+Inspect firewall profile.  
+
+`netsh advfirewall show currentprofile`  
+
+Inspect firewall rules.  
+
+`netsh advfirewall firewall show rule name=all`  
+
+## Scheduled tasks  
+
+Display tasks in a simple list.  
+
+`schtasks /query /fo LIST /v`  
 
 
 ## Services  
@@ -191,5 +212,40 @@ Running gcc on windows, run the bat file first to set up PATH env variable.
 ```
 mingw-w64.bat
 gcc --help
+```  
+
+## Applications  
+
+Installed applications and patch levels.  
+
+`wmic product get name, version, vendor`  
+
+List system wide updates.  
+
+`wmic qfe get Caption, Description, HotFixID, InstalledOn`  
+
+## File permissions  
+
+Search Program Files for everyone write permissions, 'u' to suppress errors, 'w' for write permissions, 's' for recursive.  
+
+`accesschk.exe -uws "Everyone" "C:\Program Files"`  
+
+Search permissions using powershell.  
+
+`Get-ChildItem "C:\Program Files" -Recurse | Get-ACL | ?{$_.AccessToString -match "Everyone\sAllow\s\sModify"}`  
+
+## Drives  
+
+To view mounted and physically connected but unmounted drives.  
+
+`mountvol`  
+
+## Device drivers and kernel modules  
+
+Query device drivers.  
+
+```
+powershell
+driverquery.exe /v /fo csv | ConvertFrom-CSV | Select-Object ‘Display Name’, ‘Start Mode’, Path
 ```  
 
