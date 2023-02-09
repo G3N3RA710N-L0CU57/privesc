@@ -130,3 +130,19 @@ View all available disks.
 
 `/bin/lsblk`  
 
+## Kernel modules  
+
+Display kernel modules.  
+
+`lsmod`  
+
+Find information about a specific module.  
+
+`/sbin/modinfo libata`  
+
+## SUID  
+
+Find SUID bits.  
+
+`find / -perm -u=s -type f 2>/dev/null`  
+
