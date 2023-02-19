@@ -1,5 +1,9 @@
 # Windows Privilege Escalation Notes  
 
+System information.  
+
+`systeminfo`
+
 ## net commands  
 
 Pass a username and gather more info.  
@@ -68,6 +72,18 @@ Display tasks in a simple list.
 ## Services  
 
 Are services running program files binaries? These are user installed and the structure and permissions are set by the user or developer.  
+
+List services.  
+
+`wmic service get name,displayname,pathname,startmode`  
+
+Find services started automatically.  
+
+`wmic service get name,displayname,pathname,startmode | findstr /i "auto"`  
+
+Find non standard windows services.  
+
+`wmic service get name,displayname,pathname,startmode |findstr /i "auto" |findstr /i /v "c:\windows"`  
 
 Permissions of a service.  
 
@@ -241,6 +257,10 @@ Search Program Files for everyone write permissions, 'u' to suppress errors, 'w'
 Search permissions using powershell.  
 
 `Get-ChildItem "C:\Program Files" -Recurse | Get-ACL | ?{$_.AccessToString -match "Everyone\sAllow\s\sModify"}`  
+
+Find a permission for directory.  
+
+`icacls "c:\someDirectory"`
 
 ## Drives  
 
