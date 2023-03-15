@@ -21,7 +21,11 @@ uname -a
 
 List processes, a and x with/without TTY and u for readable output.  
 
-`ps aux`
+`ps aux`  
+
+And in a tree format.  
+
+`ps aux --forest`
 
 ## cron  
 
